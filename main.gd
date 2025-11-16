@@ -29,18 +29,25 @@ const WRONG = preload("uid://duedungmi4ojk")
 # Set the defintion
 @export var definition = global.definition
 
+
+
+
 func _ready() -> void:
+	# Connect Buttons
 	_quit_button.pressed.connect(func() -> void:
 		get_tree().quit()
 	)
 	_menu_button.pressed.connect(func() -> void:
 		get_tree().change_scene_to_file("res://Scenes/menu.tscn")
 	)
+	# Start test
 	_start_test()
 
 func _start_test() -> void:
 	# Create an array of all the words
 	var queue = dictionary.list.keys()
+	#  shuffle queue for variety
+	queue.shuffle()
 	
 	_user_input.keep_editing_on_text_submit = true
 	
@@ -68,30 +75,41 @@ func _start_test() -> void:
 		
 		# compare text
 		if submitted_text.to_lower() == dictionary.list[word].to_lower():
-			print("correct")
+			# If correct play correct sound and move on in queue
 			_audio_stream_player.stream = CORRECT
 			_audio_stream_player.play()
 		else:
-			print("incorrect")
+			# If wrong play wrong sound
 			_audio_stream_player.stream = WRONG
 			_audio_stream_player.play()
+			# Show correction screen with correct answer
 			_correction_c_container.visible = true
 			_correction_c_rect.visible = true
 			_user_label.text = "You answered: " + submitted_text
 			_correction_label.text = "The correct answer is: " + dictionary.list[word]
+			# Add the word that was wrong to the end of the queue
+			queue.append(word)
+			# Auto focus continue button for easy user experience
 			_continue_button.grab_focus()
+			# When user presses continue, move on in queue
 			await _continue_button.pressed
 			
-			queue.append(word)
+	# When queue is finished:
 	if queue.size() == 0:
+		# Show correction screen again (for a winning screen)
 		_correction_c_container.visible = true
 		_correction_c_rect.visible = true
+		# Make the label showing "Wrong Answer" invisible
 		_wrong_label.visible = false
+		# Change text to congratulate user
 		_user_label.text = "Congratulations!"
 		_correction_label.text = "You completed the list!"
+		# Auto focus on continue button for easy user experience
 		_continue_button.grab_focus()
+		# Connect button to main menu
 		_continue_button.pressed.connect(func() -> void:
 			get_tree().change_scene_to_file("res://Scenes/menu.tscn")
 		)
+		# Failsafe to ensure nothing happens until the user has pressed the button
 		await _continue_button.pressed
 		
