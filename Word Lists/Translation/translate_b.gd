@@ -1,0 +1,41 @@
+class_name TranslateB extends Node
+
+static var definition := "Fill in the correct translation"
+
+static var list : Dictionary = {
+	"to love": ["Αγαπάω"],
+	"to answer": ["Απαντάω"],
+	"to help": ["Βοηθάω"],
+	"to ask / to request": ["Ζητάω"],
+	"to swim": ["Κολυμπάω"],
+	"to speak / to talk": ["Μιλάω"],
+	"to wake up": ["Ξυπνάω"],
+	"to ask": ["Ρωτάω"],
+	"to start / to begin": ["Ξεκινάω"],
+	"to stop": ["Σταματάω"],
+	"to meet": ["Συναντάω"],
+	"to be late": ["Αργώ"],
+	"to call (phone)": ["Τηλεφωνώ"],
+	"to live": ["Ζω"],
+	"to drive": ["Οδηγώ"],
+	"to agree": ["Συμφωνώ"],
+	"to disagree": ["Διαφωνώ"],
+	"to thank": ["Ευχαριστώ"],
+	"to try / to attempt": ["Προσπαθώ"],
+	"to laugh": ["Γελάω"],
+	"to be thirsty": ["Διψάω"],
+	"to be hungry": ["Πεινάω"],
+	"to pass / to spend (time)": ["Περνάω"],
+	"to forget": ["Ξεχνάω"],
+	"to break / to spoil": ["Χαλάω"],
+	"to call / to invite": ["Καλώ"],
+	"to be able / can": ["Μπορώ"],
+	"to please / to request": ["Παρακαλώ"],
+	"to hurt / to be in pain": ["Πονάω"],
+	"to wear": ["Φοράω"],
+	"to dive": ["Βουτάω"],
+	"to pull": ["Τραβάω"],
+	"to blow": ["Φυσάω"],
+	"to fly / to throw": ["Πετάω"],
+	"to look": ["Κοιτάω"]
+}

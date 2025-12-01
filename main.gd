@@ -27,7 +27,7 @@ const WRONG = preload("uid://duedungmi4ojk")
 # Set the correct word list (name.list = word list)
 @export var dictionary := global.dictionary
 # Set the defintion
-@export var definition = global.definition
+@export var definition = global.get_definition()
 
 
 
@@ -74,7 +74,15 @@ func _start_test() -> void:
 		_user_input.clear()
 		
 		# compare text
-		if submitted_text.to_lower() == dictionary.list[word].to_lower():
+		var correct_answers = dictionary.list[word]
+		var answers_text = correct_answers[0] if correct_answers.size() == 1 else correct_answers[0] + " or " + correct_answers[1]
+		var is_correct = false
+		for answer in correct_answers:
+			if submitted_text.to_lower() == answer.to_lower():
+				is_correct = true
+				break
+				
+		if is_correct:
 			# If correct play correct sound and move on in queue
 			_audio_stream_player.stream = CORRECT
 			_audio_stream_player.play()
@@ -86,7 +94,7 @@ func _start_test() -> void:
 			_correction_c_container.visible = true
 			_correction_c_rect.visible = true
 			_user_label.text = "You answered: " + submitted_text
-			_correction_label.text = "The correct answer is: " + dictionary.list[word]
+			_correction_label.text = "The correct answer is: " + answers_text
 			# Add the word that was wrong to the end of the queue
 			queue.append(word)
 			# Auto focus continue button for easy user experience
